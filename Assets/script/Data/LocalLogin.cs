@@ -20,22 +20,8 @@ public class PlayerData
     }
 }
 
-public class LocalLogin
+public class LocalLogin : Singleton<LocalLogin>
 {
-    #region singleton
-    private static LocalLogin instance = null;
-
-    public static LocalLogin Instance
-    {
-        get
-        {
-            if(instance == null)
-                instance = new LocalLogin();
-            return instance;
-        }
-    }
-    #endregion
-
     private const string dataKey        = "PlayerData";
     public PlayerData playerData;
 

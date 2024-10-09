@@ -1,0 +1,338 @@
+fileFormatVersion: 2
+guid: 29e21165cb3ae334d969d4be634eaa9e
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: background_01
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 368
+        width: 256
+        height: 272
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 451d1e4442fc5e24180adcb984403251
+      internalID: 1411385580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: background_02
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 368
+        width: 256
+        height: 272
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c61b3736b6f87a14dba8125e9ef552e2
+      internalID: -1365031433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: background_03
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 368
+        width: 256
+        height: 272
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0816443c2f92d449919ddb2fc0d29a7
+      internalID: -1601914435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: background_04
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 368
+        width: 256
+        height: 272
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3adad5c699fde54289ec3b5b14053c7
+      internalID: 1927745052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: background_05
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 368
+        width: 256
+        height: 272
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71b7f59c13614f945a8dd1e0327c6e8b
+      internalID: -1845133912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Background1: -483385287
+      Background2: 1487765377
+      Background3: -1030166557
+      Background4: 75891084
+      Background5: -1595589357
+      Barrel: 1897055379
+      Box1: -1624306119
+      Box2: -1661086882
+      Bucket: -2080484811
+      Pointer: 1084520013
+      Scarecrow: -1649204338
+      Sprites_5: -1385827443
+      Stone1: -75292869
+      Stone2: -1218938483
+      Stone3: -1085265454
+      Stump1: -1566297652
+      Stump2: 1744004749
+      Stump3: 921424544
+      TileBackGround1: 540887178
+      TileBackGround10: 1627106897
+      TileBackGround11: -929252596
+      TileBackGround12: -218241616
+      TileBackGround13: -1704233887
+      TileBackGround2: -1940139802
+      TileBackGround3: -1717655306
+      TileBackGround4: -1708713345
+      TileBackGround5: -1761290167
+      TileBackGround6: 1799187589
+      TileBackGround7: -1049089862
+      TileBackGround8: -1787779610
+      TileBackGround9: -1018248558
+      TileFence1: 21665795
+      TileFence2: -652671992
+      TileFence3: 903927783
+      TileFence4: 1534534280
+      TileFence5: 1251558090
+      TileFence6: -507992325
+      TileGround1: -1653456321
+      TileGround10: -347270656
+      TileGround11: 1110253422
+      TileGround12: -134242670
+      TileGround13: -1881253669
+      TileGround14: -1623626244
+      TileGround15: -503795376
+      TileGround16: 1289540601
+      TileGround17: 726137656
+      TileGround18: -505543965
+      TileGround19: -532126337
+      TileGround2: -660070601
+      TileGround20: 1987984787
+      TileGround21: -429454371
+      TileGround22: 18590610
+      TileGround23: 1234071245
+      TileGround24: -200938369
+      TileGround3: -819784374
+      TileGround4: -538989823
+      TileGround5: -1606505783
+      TileGround6: 2006169357
+      TileGround7: -1022879363
+      TileGround8: 2116547368
+      TileGround9: 1346599885
+      TilePlant1: -1092850191
+      TilePlant10: 333019106
+      TilePlant11: -2035219871
+      TilePlant12: 1245502822
+      TilePlant13: -1266435916
+      TilePlant14: 791998549
+      TilePlant15: 16514145
+      TilePlant16: 2099476356
+      TilePlant17: -371536616
+      TilePlant18: 1891353954
+      TilePlant19: 1017687062
+      TilePlant2: -1683142674
+      TilePlant20: 821046615
+      TilePlant3: -700092981
+      TilePlant4: -2122262137
+      TilePlant5: 301824962
+      TilePlant6: 332144878
+      TilePlant7: 1885032533
+      TilePlant8: 247350671
+      TilePlant9: -80882628
+      TileSpikes: 587555087
+      Tree1: 2062428198
+      Tree2: 2113060731
+      Tree3: 412882671
+      Tree4: 1489598022
+      Tree5: 98221129
+      Well: -488355758
+      background_01: 1411385580
+      background_02: -1365031433
+      background_03: -1601914435
+      background_04: 1927745052
+      background_05: -1845133912
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -14,14 +14,17 @@ enum LobbyButton
 
 public class LobbyButtonManager : MonoBehaviour
 {
-    [SerializeField] private List<Button> lobbyButtons;
+    private LobbyScene m_Lobby;
+    public LobbyScene lobbyScene { get { return m_Lobby; } set { m_Lobby = value; } }
+
+    [SerializeField] private List<Button> m_lobbyButtons;
 
     private void Start()
     {
-        lobbyButtons[(int)LobbyButton.LOBBY_PLAY].onClick.AddListener(() => PlayButton());
-        lobbyButtons[(int)LobbyButton.LOBBY_UPGRADE].onClick.AddListener(() => PlayButton());
-        lobbyButtons[(int)LobbyButton.LOBBY_OPTION].onClick.AddListener(() => PlayButton());
-        lobbyButtons[(int)LobbyButton.LOBBY_EXIT].onClick.AddListener(() => PlayButton());
+        m_lobbyButtons[(int)LobbyButton.LOBBY_PLAY].onClick.AddListener(() => PlayButton());
+        m_lobbyButtons[(int)LobbyButton.LOBBY_UPGRADE].onClick.AddListener(() => UpgradeButton());
+        m_lobbyButtons[(int)LobbyButton.LOBBY_OPTION].onClick.AddListener(() => OptionButton());
+        m_lobbyButtons[(int)LobbyButton.LOBBY_EXIT].onClick.AddListener(() => ExitButton());
     }
 
     private void PlayButton()
@@ -40,6 +43,7 @@ public class LobbyButtonManager : MonoBehaviour
     }
     private void ExitButton()
     {
+        lobbyScene.uiManager.OnExitPopup();
         // 1. Á¾·á ÆË¾÷ ¶ç¿ì±â
         // 2. yes : °ÔÀÓ Á¾·á
         // 3. no : ÆË¾÷ ´Ý±â

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,20 +10,28 @@ public class LobbyUIManager : MonoBehaviour
     public LobbyScene lobbyScene { get { return m_Lobby; } set { m_Lobby = value; } }
 
     [SerializeField] private LobbyPopup m_popupUI;
+    public LobbyPopup popupUI { get {  return m_popupUI; } }
+
+    [SerializeField] private GameObject m_playUI;
+    [SerializeField] private GameObject m_upgradeUI;
+    [SerializeField] private GameObject m_optionUI;
+
+    public void OnPlayPopup()
+    {
+        m_playUI.SetActive(true);
+    }
+
     public void OnUpgradePopup()
     {
-        m_popupUI.gameObject.SetActive(true);
-        m_popupUI.SetData("업그레이드", "이건 업그레이드?");
+        m_upgradeUI.SetActive(true);
     }
     public void OnOptionPopup()
     {
-        m_popupUI.gameObject.SetActive(true);
-        m_popupUI.SetData("옵션", "이건 옵션임");
+        m_optionUI.SetActive(true);
     }
     public void OnExitPopup()
     {
-        //UnityAction a = () => { Debug.Log("종료"); };
         m_popupUI.gameObject.SetActive(true);
-        m_popupUI.SetData("종료하기", "종료하시겠습니까?");
+        m_popupUI.SetText("종료하기", "종료하시겠습니까?");
     }
 }

@@ -10,6 +10,8 @@ enum LobbyButton
     LOBBY_UPGRADE,
     LOBBY_OPTION,
     LOBBY_EXIT,
+    LOBBY_POPUP_YES,
+    LOBBY_POPUP_NO
 }
 
 public class LobbyButtonManager : MonoBehaviour
@@ -18,6 +20,8 @@ public class LobbyButtonManager : MonoBehaviour
     public LobbyScene lobbyScene { get { return m_Lobby; } set { m_Lobby = value; } }
 
     [SerializeField] private List<Button> m_lobbyButtons;
+    [SerializeField] private Button m_popupYESButton;
+    [SerializeField] private Button m_popupNOButton;
 
     private void Start()
     {
@@ -29,23 +33,22 @@ public class LobbyButtonManager : MonoBehaviour
 
     private void PlayButton()
     {
-        // 게임 시작
-        SceneManager.LoadScene(1);
+        // 게임 시작 UI  ( 난이도 선택 ) 함수 호출
+        lobbyScene.uiManager.OnPlayPopup();
     }
-
     private void UpgradeButton()
     {
-        // 1. 업그레이드 팝업
+        // 업그레이드 UI 함수 호출
+        lobbyScene.uiManager.OnUpgradePopup();
     }
     private void OptionButton()
     {
-        // 1. 옵션 팝업
+        // 옵션 UI 함수 호출
+        lobbyScene.uiManager.OnOptionPopup();
     }
     private void ExitButton()
     {
+        // 종료 UI 함수 호출
         lobbyScene.uiManager.OnExitPopup();
-        // 1. 종료 팝업 띄우기
-        // 2. yes : 게임 종료
-        // 3. no : 팝업 닫기
     }
 }

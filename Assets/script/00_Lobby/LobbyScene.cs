@@ -7,12 +7,15 @@ public class LobbyScene : MonoBehaviour
 {
     private LobbyButtonManager  m_buttonManager;
     private LobbyUIManager      m_uiManager;
+    private LobbyEventManager   m_eventManager;
 
-    public LobbyButtonManager   buttonManager { get { return m_buttonManager; } }
-    public LobbyUIManager       uiManager { get { return m_uiManager; } }
+    public LobbyButtonManager   buttonManager   { get { return m_buttonManager; } }
+    public LobbyUIManager       uiManager       { get { return m_uiManager; } }
+    public LobbyEventManager    eventManager    { get { return m_eventManager; } }
 
     private void Awake()
     {
+        // 로비씬 매니저 초기화 ( 싱글톤 XX )
         InitManagers();
 
         // 로컬 데이터 로드
@@ -26,6 +29,7 @@ public class LobbyScene : MonoBehaviour
     {
         m_buttonManager = GetComponentInChildren<LobbyButtonManager>();
         m_uiManager     = GetComponentInChildren<LobbyUIManager>();
+        m_eventManager  = GetComponentInChildren<LobbyEventManager>();
 
         m_buttonManager.lobbyScene  = this;
         m_uiManager.lobbyScene      = this;
@@ -51,8 +55,5 @@ public class LobbyScene : MonoBehaviour
         ResolutionData.Instance.SetData(RESOLUTION_DATA.RESOLUTION_WIDTH, Screen.width);
         // 화면 높이
         ResolutionData.Instance.SetData(RESOLUTION_DATA.RESOLUTION_HEIGHT, Screen.height);
-
-        Debug.Log(ResolutionData.Instance.GetData(RESOLUTION_DATA.RESOLUTION_WIDTH));
-        Debug.Log(ResolutionData.Instance.GetData(RESOLUTION_DATA.RESOLUTION_HEIGHT));
     }
 }

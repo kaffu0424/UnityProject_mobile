@@ -48,7 +48,7 @@ public class LobbyButtonManager : MonoBehaviour
     }
     private void ExitButton()
     {
-        // 종료 UI 함수 호출
-        lobbyScene.uiManager.OnExitPopup();
+        // 종료 UI 함수 호출 ( 팝업 )
+        lobbyScene.uiManager.OnExitPopup(); 
     }
 }

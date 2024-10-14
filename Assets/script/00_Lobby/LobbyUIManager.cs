@@ -33,5 +33,12 @@ public class LobbyUIManager : MonoBehaviour
     {
         m_popupUI.gameObject.SetActive(true);
         m_popupUI.SetText("종료하기", "종료하시겠습니까?");
+
+        m_popupUI.SetButtonFunction(() => lobbyScene.eventManager.ExitGame());
+    }
+
+    public void UpdateMoney()
+    {
+        
     }
 }

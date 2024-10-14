@@ -1,19 +1,34 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
 
+[System.Serializable]
 public class PlayerInformation
 {
-    public int cost;        // 보유 재화
+    // data
+    public float m_currentDifficulty;     // 현재 게임의 난이도 ( 보상 배율 )
+    public int m_cost;                    // 보유 재화
+    public List<int> m_upgradeInfo;        // 각종 업그레이드 수치
 
-    // 각종 업그레이드 수치
-    public int upgrade_1;
-    public int upgrade_2;
-    public int upgrade_3;
-    public int upgrade_4;
+    // get/set
+    public float currentDifficulty
+    { get { return m_currentDifficulty; } set {  m_currentDifficulty = value; } }
+    public int cost 
+    { get { return m_cost;} set { m_cost = value; } }
+    public List<int> upgradeInfo 
+    { get { return m_upgradeInfo; } }
 
+    // function
+    public void InitUpgradeInfo()
+    {
+        m_upgradeInfo = new List<int>();
+        for(int i = 0; i < Enum.GetValues(typeof(UPGRADE_TYPE)).Length; i++)
+        {
+            m_upgradeInfo.Add(0);
+        }
+    }
 }
+
 public class PlayerData : Singleton<PlayerData>
 {
     private const string dataKey = "PlayerData";
@@ -43,22 +58,15 @@ public class PlayerData : Singleton<PlayerData>
         return true;
     }
 
-    public void CreateData()
-    {
-        // 데이터 생성
-        data = new PlayerInformation();
-        // 데이터 -> Json 변환
-        string jsonData = JsonUtility.ToJson(data);
-        // PlayerPrefs를 활용하여 데이터 저장
-        PlayerPrefs.SetString(dataKey, jsonData);
-    }
-
     public void SaveData()
     {
         if(data == null)
         {
             // 데이터가 없으면 데이터 생성
             data = new PlayerInformation();
+
+            // 배열 세팅
+            data.InitUpgradeInfo();
         }
 
         // 데이터 -> Json 변환

@@ -33,10 +33,13 @@ public class LobbyScene : MonoBehaviour
 
         m_buttonManager.lobbyScene  = this;
         m_uiManager.lobbyScene      = this;
+        m_eventManager.lobbyScene   = this;
     }
 
     private void LoadData()
     {
+        // 데이터 초기화
+        // 플레이어 데이터에 뭔가 추가될때마다 한번 실행시켜주기!
         // PlayerPrefs.DeleteKey("PlayerData");
 
         //데이터 불러오기
@@ -57,3 +60,4 @@ public class LobbyScene : MonoBehaviour
         ResolutionData.Instance.SetData(RESOLUTION_DATA.RESOLUTION_HEIGHT, Screen.height);
     }
 }
+

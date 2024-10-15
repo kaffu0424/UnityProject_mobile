@@ -3,37 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LobbyScene : MonoBehaviour
+// Lobby Scene을 관리하는 코어 스크립트
+public class LobbyScene : Singleton_Mono<LobbyScene>
 {
-    private LobbyButtonManager  m_buttonManager;
-    private LobbyUIManager      m_uiManager;
-    private LobbyEventManager   m_eventManager;
-
-    public LobbyButtonManager   buttonManager   { get { return m_buttonManager; } }
-    public LobbyUIManager       uiManager       { get { return m_uiManager; } }
-    public LobbyEventManager    eventManager    { get { return m_eventManager; } }
-
-    private void Awake()
+    protected override void InitializeManager()
     {
-        // 로비씬 매니저 초기화 ( 싱글톤 XX )
-        InitManagers();
+        // 로비 씬 해상도 설정
+        LobbySetResolution();
 
         // 로컬 데이터 로드
         LoadData();
-
-        // 로비 씬 해상도 설정
-        LobbySetResolution();
-    }
-
-    private void InitManagers()
-    {
-        m_buttonManager = GetComponentInChildren<LobbyButtonManager>();
-        m_uiManager     = GetComponentInChildren<LobbyUIManager>();
-        m_eventManager  = GetComponentInChildren<LobbyEventManager>();
-
-        m_buttonManager.lobbyScene  = this;
-        m_uiManager.lobbyScene      = this;
-        m_eventManager.lobbyScene   = this;
     }
 
     private void LoadData()

@@ -31,7 +31,6 @@ public class LobbyPopup : MonoBehaviour
 
     private void NoButtonFunction()
     {
-        SetButtonFunction(null);        // yes 버튼 함수 제거
         gameObject.SetActive(false);    // 팝업 닫기
     }
 }

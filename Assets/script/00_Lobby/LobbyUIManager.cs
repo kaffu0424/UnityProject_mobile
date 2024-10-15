@@ -4,41 +4,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class LobbyUIManager : MonoBehaviour
+public class LobbyUIManager : Singleton_Mono<LobbyUIManager>
 {
-    private LobbyScene m_Lobby;
-    public LobbyScene lobbyScene { get { return m_Lobby; } set { m_Lobby = value; } }
+    [SerializeField] private LobbyPopup     m_popupUI;      // 팝업
+    [SerializeField] private LobbyPlayPopup m_playUI;       // 플레이 UI
+    [SerializeField] private LobbyUpgrade   m_upgradeUI;    // 업그레이드 UI
+    [SerializeField] private LobbyOption    m_optionUI;     // 옵션 UI
 
-    [SerializeField] private LobbyPopup m_popupUI;
-    public LobbyPopup popupUI { get {  return m_popupUI; } }
+    // Get / Set
+    public LobbyPopup       popupUI     { get { return m_popupUI; } }
+    public LobbyPlayPopup   playUI      { get { return m_playUI; } }
+    public LobbyUpgrade     upgradeUI   { get { return m_upgradeUI; } }
+    public LobbyOption      optionUI    { get { return m_optionUI; } }
 
-    [SerializeField] private GameObject m_playUI;
-    [SerializeField] private GameObject m_upgradeUI;
-    [SerializeField] private GameObject m_optionUI;
-
-    public void OnPlayPopup()
+    protected override void InitializeManager()
     {
-        m_playUI.SetActive(true);
+
     }
 
-    public void OnUpgradePopup()
+    public void OnPlayPopup(bool _state)
     {
-        m_upgradeUI.SetActive(true);
-    }
-    public void OnOptionPopup()
-    {
-        m_optionUI.SetActive(true);
-    }
-    public void OnExitPopup()
-    {
-        m_popupUI.gameObject.SetActive(true);
-        m_popupUI.SetText("종료하기", "종료하시겠습니까?");
-
-        m_popupUI.SetButtonFunction(() => lobbyScene.eventManager.ExitGame());
+        m_playUI.gameObject.SetActive(_state);
     }
 
-    public void UpdateMoney()
+    public void OnUpgradePopup(bool _state)
     {
-        
+        m_upgradeUI.gameObject.SetActive(_state);
+    }
+    public void OnOptionPopup(bool _state)
+    {
+        m_optionUI.gameObject.SetActive(_state);
+    }
+    public void OnPopup(bool _state)
+    {
+        m_popupUI.gameObject.SetActive(_state);
     }
 }

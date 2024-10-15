@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
+public enum LocalizationType
+{
+    English = 0,
+    Korean = 1,
+}
 
 // Lobby Scene을 관리하는 코어 스크립트
 public class LobbyScene : Singleton_Mono<LobbyScene>
@@ -38,5 +45,22 @@ public class LobbyScene : Singleton_Mono<LobbyScene>
         // 화면 높이
         ResolutionData.Instance.SetData(RESOLUTION_DATA.RESOLUTION_HEIGHT, Screen.height);
     }
+
+    #region Localization 테스트 코드
+    public void kor()
+    {
+        ChangeLanguage(LocalizationType.Korean);
+    }
+
+    public void eng()
+    {
+        ChangeLanguage(LocalizationType.English);
+    }
+    private void ChangeLanguage(LocalizationType languageType)
+    {
+        LocalizationSettings.SelectedLocale =
+            LocalizationSettings.AvailableLocales.Locales[(int)languageType];
+    }
+    #endregion
 }
 

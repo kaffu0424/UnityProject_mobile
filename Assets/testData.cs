@@ -12,5 +12,7 @@ public class testData : MonoBehaviour
 
         //PlayerData.Instance.data.upgradeInfo[(int)UPGRADE_TYPE.DAMAGE] = 2;
         //PlayerData.Instance.SaveData();
+
+
     }
 }

@@ -40,6 +40,38 @@ MonoBehaviour:
     m_Localized: EXIT
     m_Metadata:
       m_Items: []
+  - m_Id: 627009976557568
+    m_Localized: Difficulty Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 627269692055552
+    m_Localized: "\rDifficulty"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 627483924520960
+    m_Localized: PLAY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 627564400631808
+    m_Localized: BACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 635688188665856
+    m_Localized: UPGRADE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 635765707792384
+    m_Localized: BACK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636565012111360
+    m_Localized: YES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636662605176832
+    m_Localized: NO
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -35,6 +35,38 @@ MonoBehaviour:
     m_Key: exit_button_key
     m_Metadata:
       m_Items: []
+  - m_Id: 627009976557568
+    m_Key: playUI_title_key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 627269692055552
+    m_Key: playUI_description_key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 627483924520960
+    m_Key: playUI_yesbutton_key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 627564400631808
+    m_Key: playUI_nobutton_key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 635688188665856
+    m_Key: upgradeUI_title_key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 635765707792384
+    m_Key: upgradeUI_button_key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636565012111360
+    m_Key: popup_yesbutton_key
+    m_Metadata:
+      m_Items: []
+  - m_Id: 636662605176832
+    m_Key: popup_nobutton_key
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -44,7 +44,13 @@ public class LobbyButtons : MonoBehaviour
         // 종료 UI 함수 호출 ( 팝업 )
         LobbyUIManager.Instance.OnPopup(true);
 
-        LobbyUIManager.Instance.popupUI.SetText("종료하기", "종료하시겠습니까?");
+        // 한글
+        if(PlayerData.Instance.data.localization == LocalizationType.KOR)
+            LobbyUIManager.Instance.popupUI.SetText("종료하기", "종료하시겠습니까?");
+        // 영어
+        else
+            LobbyUIManager.Instance.popupUI.SetText("EXIT", "EXIT GAME?");
+
         LobbyUIManager.Instance.popupUI.SetButtonFunction(() => { Application.Quit(); });
     }
 }

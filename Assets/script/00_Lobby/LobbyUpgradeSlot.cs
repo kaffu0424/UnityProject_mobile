@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -22,25 +23,40 @@ public class LobbyUpgradeSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        // 업그레이드 이미지 클릭 이벤트
-
+        // 업그레이드 클릭 이벤트
         LobbyUIManager.Instance.OnPopup(true);
 
-        string title = "업그레이드";
-        string description = 
-            m_upgradeType.ToString() + 
-            "\n 10 -> 20 " +
-            "\n 소모재화 : 10";
+        string title, description;
+        if (PlayerData.Instance.data.localization == LocalizationType.KOR)
+            SetUpgradePopupKOR(out title, out description);
+        else
+            SetUpgradePopupENG(out title, out description);
+
         LobbyUIManager.Instance.popupUI.SetText(title, description);
 
         Action func = () => UpgradeFunction();
         LobbyUIManager.Instance.popupUI.SetButtonFunction(func);
     }
 
+    private void SetUpgradePopupKOR(out string _title, out string _description)
+    {
+        _title = "업그레이드";
+        _description =
+            m_upgradeType.ToString() +
+            "\n 10 -> 20 " +
+            "\n 소모재화 : 10";
+    }
+    private void SetUpgradePopupENG(out string _title, out string _description)
+    {
+        _title = "UPGRADE";
+        _description =
+            m_upgradeType.ToString() +
+            "\n 10 -> 20 " +
+            "\n 소모재화 : 10";
+    }
+
     private void UpgradeFunction()
     {
-        Debug.Log(m_upgradeType.ToString());
-
         PlayerData.Instance.data.upgradeInfo[(int)m_upgradeType]++; // 수치 증가
         PlayerData.Instance.SaveData();                             // 저장
 

@@ -5,6 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerInformation
 {
+    // localization
+    public LocalizationType m_localization;
+
     // data
     public float m_currentDifficulty;     // 현재 게임의 난이도 ( 보상 배율 )
     public int m_cost;                    // 보유 재화
@@ -17,6 +20,8 @@ public class PlayerInformation
     { get { return m_cost;} set { m_cost = value; } }
     public List<int> upgradeInfo 
     { get { return m_upgradeInfo; } }
+    public LocalizationType localization
+    { get { return m_localization; } set {  m_localization = value; } }
 
     // function
     public void InitUpgradeInfo()

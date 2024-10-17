@@ -60,6 +60,7 @@ public class PlayerData : Singleton<PlayerData>
         // 데이터가 정상적으로 들어왔는지 확인
         if (data == null)
             return false;
+
         return true;
     }
 

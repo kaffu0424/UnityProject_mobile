@@ -5,8 +5,15 @@ using UnityEngine.UI;
 
 public enum UPGRADE_TYPE
 {
-    DAMAGE,
-    HP
+    // 스탯
+    MaxHP,              // 추가 체력
+    Damage,             // 데미지
+    AttackSpeed,        // 공격속도
+    Critical,           // 크확 및 크뎀
+
+    // 유틸
+    Coin,               // 시작 비용 증가
+    Slot,               // 슬롯 증가
 }
 
 public class LobbyUpgrade : MonoBehaviour
@@ -16,7 +23,7 @@ public class LobbyUpgrade : MonoBehaviour
     private Button          m_backButton;
 
     // add Inspector
-    [SerializeField] private GameObject             m_slotPrefab;
+    [SerializeField] private GameObject m_slotPrefab;
 
     // 슬롯 참조
     private List<LobbyUpgradeSlot> m_upgradeSlots;

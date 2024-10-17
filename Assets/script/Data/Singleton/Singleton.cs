@@ -14,6 +14,7 @@ public class Singleton<T> where T : class, new()
         {
             if (instance == null)
                 instance = new T();
+
             return instance;
         }
     }

@@ -47,6 +47,10 @@ public class LobbyUpgrade : MonoBehaviour
         // 슬롯 정보 업데이트
         UpdateSlots();
     }
+    private void OnEnable()
+    {
+        UpdateSlots();
+    }
 
     private void ResizeSlot(float _width)
     {
@@ -84,7 +88,7 @@ public class LobbyUpgrade : MonoBehaviour
     {
         for(int i = 0; i < m_upgradeSlots.Count; i++)
         {
-            m_upgradeSlots[i].UpdateData();
+            m_upgradeSlots[i].UpdateSlot();
         }
     }
 

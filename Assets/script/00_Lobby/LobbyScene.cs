@@ -11,7 +11,10 @@ public class LobbyScene : Singleton_Mono<LobbyScene>
 
         // 로컬 데이터 로드
         LoadData();
-         
+
+        // ResourceData 로드
+        ResourceData.Instance.LoadData();
+
         // 언어 데이터 초기화 및 저장된 언어로 변경
         Localization.Instance.InitStringData();
         Localization.Instance.ChangeLanguage(PlayerData.Instance.data.localization);

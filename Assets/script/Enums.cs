@@ -11,3 +11,15 @@ public enum RESOLUTION_DATA
     CAMERARECT_WIDTH,       // 게임카메라 영역 길이
     CAMERARECT_HEIGHT,      // 게임카메라 영역 높이
 }
+
+// 스프라이트 이름으로 넣어주기
+public enum SPRITE_DATA
+{
+    // 업그레이드 스프라이트
+    SPRITE_MaxHP,
+    SPRITE_Damage,
+    SPRITE_AttackSpeed,
+    SPRITE_Critical,
+    SPRITE_Coin,
+    SPRITE_Slot,
+}

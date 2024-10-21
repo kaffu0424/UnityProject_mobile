@@ -16,25 +16,26 @@ public class Localization : Singleton<Localization>
     string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
 
     private Dictionary<string, string> m_stringData;
-    public Dictionary<string, string> stringData
-    { get { return m_stringData; } }
 
     public void InitStringData()
     {
-        m_stringData = new Dictionary<string, string>();
-        
-        // 엑셀 데이터 파싱
-        TextAsset data = Resources.Load("StringData") as TextAsset;
-
-        // 줄단위로 자르기
-        var lines = Regex.Split(data.text, LINE_SPLIT_RE);  
-        var header = Regex.Split(lines[0], SPLIT_RE);      
-
-        for (int i = 1; i < lines.Length; i++)
+        if(m_stringData == null)
         {
-            // 단어로 자르고 데이터 저장
-            var values = Regex.Split(lines[i], SPLIT_RE);   
-            m_stringData.Add(values[0], values[1]);         
+            m_stringData = new Dictionary<string, string>();
+        
+            // 엑셀 데이터 파싱
+            TextAsset data = Resources.Load("StringData") as TextAsset;
+
+            // 줄단위로 자르기
+            var lines = Regex.Split(data.text, LINE_SPLIT_RE);  
+            var header = Regex.Split(lines[0], SPLIT_RE);      
+
+            for (int i = 1; i < lines.Length; i++)
+            {
+                // 단어로 자르고 데이터 저장
+                var values = Regex.Split(lines[i], SPLIT_RE);   
+                m_stringData.Add(values[0], values[1]);         
+            }
         }
     }
 

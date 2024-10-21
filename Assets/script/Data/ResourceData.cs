@@ -9,7 +9,8 @@ public class ResourceData : Singleton<ResourceData>
     public void LoadData()
     {
         // Sprite load
-        LoadSprite();
+        if (m_spriteData == null)
+            LoadSprite();
 
         // --- load
 

@@ -18,20 +18,24 @@ public class PlayerInformation
     { get { return m_currentDifficulty; } set {  m_currentDifficulty = value; } }
     public int cost 
     { get { return m_cost;} set { m_cost = value; } }
-    public List<int> upgradeInfo 
-    { get { return m_upgradeInfo; } }
-    public LocalizationType localization
-    { get { return m_localization; } set {  m_localization = value; } }
-
-    // function
-    public void InitUpgradeInfo()
+    public List<int> upgradeInfo
     {
-        m_upgradeInfo = new List<int>();
-        for(int i = 0; i < Enum.GetValues(typeof(UPGRADE_TYPE)).Length; i++)
+        get
         {
-            m_upgradeInfo.Add(0);
+            if (m_upgradeInfo == null)
+            {
+                m_upgradeInfo = new List<int>();
+                for (int i = 0; i < Enum.GetValues(typeof(UPGRADE_TYPE)).Length; i++)
+                {
+                    m_upgradeInfo.Add(0);
+                }
+            }
+
+            return m_upgradeInfo;
         }
     }
+    public LocalizationType localization
+    { get { return m_localization; } set {  m_localization = value; } }
 }
 
 public class PlayerData : Singleton<PlayerData>
@@ -70,9 +74,6 @@ public class PlayerData : Singleton<PlayerData>
         {
             // 데이터가 없으면 데이터 생성
             data = new PlayerInformation();
-
-            // 배열 세팅
-            data.InitUpgradeInfo();
         }
 
         // 데이터 -> Json 변환

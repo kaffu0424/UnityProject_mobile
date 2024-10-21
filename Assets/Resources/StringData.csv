@@ -2,5 +2,9 @@ Key_eng,Value_kor
 MaxHP,체력
 Damage,데미지
 AttackSpeed,공격속도
+Critical,치명타
+Defense,방어력
+Slow,몬스터 느리게
 Coin,시작 코인 증가
 Slot,슬롯 증가
+Lucky,행운

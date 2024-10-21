@@ -55,5 +55,12 @@ public class LobbyScene : Singleton_Mono<LobbyScene>
         Localization.Instance.ChangeENG();
     }
     #endregion
+
+    #region µ·¹Þ±â
+    public void getmoney()
+    {
+        PlayerData.Instance.data.cost += 100;
+    }
+    #endregion
 }
 

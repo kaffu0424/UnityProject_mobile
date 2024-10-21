@@ -20,6 +20,9 @@ public enum SPRITE_DATA
     SPRITE_Damage,
     SPRITE_AttackSpeed,
     SPRITE_Critical,
+    SPRITE_Defense,
+    SPRITE_Slow,
     SPRITE_Coin,
     SPRITE_Slot,
+    SPRITE_Lucky,
 }

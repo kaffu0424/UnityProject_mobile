@@ -8,6 +8,8 @@ public class testData : MonoBehaviour
     
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
+
         testInfo = PlayerData.Instance.data;
 
         //PlayerData.Instance.data.upgradeInfo[(int)UPGRADE_TYPE.DAMAGE] = 2;

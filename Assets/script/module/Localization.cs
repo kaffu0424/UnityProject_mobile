@@ -46,7 +46,7 @@ public class Localization : Singleton<Localization>
         {
             return ret;
         }
-        return "";
+        return _key;
     }
 
     public void ChangeKOR()

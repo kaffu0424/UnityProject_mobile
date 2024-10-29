@@ -6,27 +6,34 @@ public class InventorySlot : MonoBehaviour
     private RectTransform m_rect;
     [SerializeField] private int m_index;
     [SerializeField] private SlotType m_slotType;
+    [SerializeField] private int m_X;
+    [SerializeField] private int m_Y;
 
     [SerializeField] private TextMeshProUGUI t;
+
+    // get / set
     public int index { get { return m_index; } set { m_index = value; } }
+    public int X { get { return m_X; } set { m_X = value; } }
+    public int Y { get { return m_Y; } set { m_Y = value; } }
     public SlotType slotType { get { return m_slotType; } set { m_slotType = value; } }
 
     private void Start()
     {
         m_rect = GetComponent<RectTransform>();
-
+        InventoryManager.Instance.AddSlot(this);
     }
 
     public void test()
-    {
-        // Colume ªÁ¿Ã¡Ó 
-        int iColSize = iColSize = InventoryManager.Instance.inventoryColumeSize;
+    { 
+        int irowSize = InventoryManager.Instance.inventoryRowSize;
         if (slotType == SlotType.Chest)
-            iColSize = InventoryManager.Instance.chestColumeSize;
+            irowSize = InventoryManager.Instance.chestRowSize;
 
-        // text
-        string col = $"{index / iColSize}";
-        string row = $"{index % iColSize}";
-        t.text = $" {col},{row} ";
+        X = index % irowSize;
+        Y = index / irowSize;
+
+        t.text = $" x:{X}, y:{Y} ";
+
+        // x + ( y * rowSize )
     }
 }

@@ -10,6 +10,7 @@ public enum RESOLUTION_DATA
     UIRECT_HEIGHT,          // UI 영역 높이
     CAMERARECT_WIDTH,       // 게임카메라 영역 길이
     CAMERARECT_HEIGHT,      // 게임카메라 영역 높이
+    SLOTSIZE,               // 인벤토리 슬롯 사이즈
 }
 
 // 스프라이트 이름으로 넣어주기

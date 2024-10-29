@@ -61,6 +61,7 @@ public class CreateSlot : MonoBehaviour
         m_chestLayout.cellSize = new Vector2(slotSize, slotSize);
         m_inventoryLayout.cellSize = new Vector2(slotSize, slotSize);
 
+        ResolutionData.Instance.SetData(RESOLUTION_DATA.SLOTSIZE, slotSize);
         // 十茎 持失
         // inventory UI 十茎 持失 ( 5 * 5 )
         for (int i = 0; i < InventoryManager.Instance.inventorySize; i++)

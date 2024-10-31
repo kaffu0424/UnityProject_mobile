@@ -67,18 +67,14 @@ public class CreateSlot : MonoBehaviour
         for (int i = 0; i < InventoryManager.Instance.inventorySize; i++)
         {
             InventorySlot slot = Instantiate(m_slotObject, m_rectInventory).GetComponent<InventorySlot>();
-            slot.index = i;  
-            slot.slotType = SlotType.Inventory;
-            slot.test();
+            slot.InitSlot(i, SlotType.Inventory);
         }
 
         // chest UI ½½·Ô »ý¼º ( 6 * 2 )
         for (int i = 0; i < InventoryManager.Instance.chestSize; i++)
         {
-            InventorySlot slot = Instantiate(m_slotObject, m_rectChest).GetComponent<InventorySlot>(); ;
-            slot.index = i;
-            slot.slotType = SlotType.Chest;
-            slot.test();
+            InventorySlot slot = Instantiate(m_slotObject, m_rectChest).GetComponent<InventorySlot>();
+            slot.InitSlot(i, SlotType.Chest);
         }
     }
 }

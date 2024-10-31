@@ -36,10 +36,10 @@ public class ItemManager : Singleton_Mono<ItemManager>
         }   
     }
 
-    public void CreateItem(ItemName _name, int _posY, int _posX, ref InventorySlot[,] _slots)
+    public void CreateItem(int _posY, int _posX, ItemName _name, SlotType _type, ref InventorySlot[,] _slots)
     {
         ItemObject newitem = Instantiate(itemPrefabs[(int)_name], itemsRect).GetComponent<ItemObject>();
-        newitem.InitItem();
+        newitem.InitItem(_posY, _posX, _name, _type);
         newitem.MoveToPosition(_slots[_posY, _posX].rect.position);
     }
 }

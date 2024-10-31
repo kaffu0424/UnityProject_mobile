@@ -22,7 +22,17 @@ public class UIManager : Singleton_Mono<UIManager>
 
     protected override void InitializeManager()
     {
-        m_graphicRay  = canvas.GetComponent<GraphicRaycaster>();
-        m_eventSystem = EventSystem.current;
+        m_graphicRay    = canvas.GetComponent<GraphicRaycaster>();
+        m_eventSystem   = EventSystem.current;
+        m_results       = new List<RaycastResult>();
+    }
+
+    public void InventoryRayCast()
+    {
+        m_pointerEventData = new PointerEventData(eventSystem)
+        { position = Input.mousePosition };
+
+        results.Clear();
+        graphicRay.Raycast(m_pointerEventData, results);
     }
 }

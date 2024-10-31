@@ -74,7 +74,7 @@ public class InventoryManager : Singleton_Mono<InventoryManager>
                         continue;
 
                     // 아이템 생성
-                    ItemManager.Instance.CreateItem(_name, i, j, ref m_inventorySlots);
+                    ItemManager.Instance.CreateItem(i, j, _name, SlotType.Inventory, ref m_inventorySlots);
 
                     // 인벤토리 사용중으로 변경
                     ChangeState(i, j, ref tiles, SlotType.Inventory);
@@ -93,7 +93,7 @@ public class InventoryManager : Singleton_Mono<InventoryManager>
                         continue;
 
                     // 아이템 생성
-                    ItemManager.Instance.CreateItem(_name, i, j, ref m_chestSlots);
+                    ItemManager.Instance.CreateItem(i, j, _name, SlotType.Chest, ref m_chestSlots);
 
                     // 인벤토리 사용중으로 변경
                     ChangeState(i, j, ref tiles, SlotType.Chest);
@@ -104,7 +104,7 @@ public class InventoryManager : Singleton_Mono<InventoryManager>
         }
     }
 
-    private bool CheckSlot(int _curY, int _curX, ref List<ItemTile> _tiles, SlotType _type)
+    public bool CheckSlot(int _curY, int _curX, ref List<ItemTile> _tiles, SlotType _type)
     {
         // 매개변수로 받은 SlotType을 사용하여
         // 검사할 슬롯의 범위 및 상태 배열을 선택

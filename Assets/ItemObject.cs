@@ -15,17 +15,17 @@ public class ItemObject : MonoBehaviour, IPointerClickHandler , IBeginDragHandle
     // 현재 위치한 슬롯타입
     private SlotType m_currentSlotType;
     // 아이템의 이름
-    private ItemName m_name;
+    private ItemName m_itemName;
 
     // get / set
     public List<ItemTile> tiles { get { return m_tiles; } }
     public Vector2 pos { get { return m_pos; } }
-    public ItemName name { get { return m_name; } }
+    public ItemName itemName { get { return m_itemName; } }
     public void InitItem(int _posY, int _posX, ItemName _name, SlotType _type)
     {
         m_pos               = new Vector2(_posX, _posY);
         m_currentSlotType   = _type;
-        m_name              = _name;
+        m_itemName = _name;
 
         // Componoents
         m_rect              = GetComponent<RectTransform>();
@@ -79,30 +79,15 @@ public class ItemObject : MonoBehaviour, IPointerClickHandler , IBeginDragHandle
             {
                 InventorySlot slot = result.gameObject.GetComponent<InventorySlot>();
 
-                if(ItemManager.Instance.tiles.TryGetValue(m_name, out List<ItemTile> tiles))
-                {
-                    if (InventoryManager.Instance.CheckSlot(slot.Y, slot.X, ref tiles, m_currentSlotType))
-                    {
-                        // 현재위치 가능
-                        Image[] images = GetComponentsInChildren<Image>();
-                        foreach(Image i in images)
-                        {
-                            i.color = new Color(0, 255, 0, 50);
-                        }
-                    }
-                    else
-                    {
-                        // 불가능
-                        Image[] images = GetComponentsInChildren<Image>();
-                        foreach (Image i in images)
-                        {
-                            i.color = new Color(255, 0, 0, 50);
-                        }
-                    }
+                if (!ItemManager.Instance.tiles.TryGetValue(m_itemName, out List<ItemTile> tiles))
+                    break;
+                
+                // slot : 현재 마우스가 올라가있는 위치의 슬롯
+                // tiles : 현재 선택된 아이템의 타일 정보
 
-                    // 현재 발견된 이슈
-                    // 1. 드래그중인 아이템이 원래있던 위치도 감지를해서 빨간색으로 떠버림..
-                }
+                // slot 타입으로 .. InventoryManager에 접근해서.. 
+                // 타입에 맞는 슬롯 배열 확인하고..
+                // 이렇쿵 저렇쿵..
             }
         }
     }

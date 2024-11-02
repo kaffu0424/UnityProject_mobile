@@ -16,6 +16,19 @@ public struct ItemTile
     public int x { get { return m_x; } }
     public int y { get { return m_y; } }
 }
+public struct ItemPos
+{
+    public int m_x;
+    public int m_y;
+    public int x { get { return m_x; } set { m_x = value; } }
+    public int y { get { return m_y; } set { m_y = value; } }
+
+    public ItemPos(int _x, int _y)
+    {
+        m_x = _x;
+        m_y = _y;
+    }
+}
 
 public class ItemManager : Singleton_Mono<ItemManager>
 {
@@ -26,6 +39,7 @@ public class ItemManager : Singleton_Mono<ItemManager>
     public List<GameObject>                     itemPrefabs { get { return m_itemPrefabs; } }
     public RectTransform                        itemsRect   { get { return m_itemsRect; } }
     public Dictionary<ItemName, List<ItemTile>> tiles       { get { return m_tiles; } }
+
     protected override void InitializeManager()
     {
         m_tiles = new Dictionary<ItemName, List<ItemTile>>();
@@ -36,10 +50,10 @@ public class ItemManager : Singleton_Mono<ItemManager>
         }   
     }
 
-    public void CreateItem(int _posY, int _posX, ItemName _name, SlotType _type, ref InventorySlot[,] _slots)
+    public void CreateItem(ItemPos _pos, ItemName _name, SlotType _type, ref InventorySlot[,] _slots)
     {
         ItemObject newitem = Instantiate(itemPrefabs[(int)_name], itemsRect).GetComponent<ItemObject>();
-        newitem.InitItem(_posY, _posX, _name, _type);
-        newitem.MoveToPosition(_slots[_posY, _posX].rect.position);
+        newitem.InitItem(_pos. y,_pos.x, _name, _type);
+        newitem.MoveToPosition(_slots[_pos.y, _pos.x].rect.position);
     }
 }

@@ -21,35 +21,24 @@ public enum ItemType
 
 public class InventoryManager : Singleton_Mono<InventoryManager>
 {
-    // 인벤토리 / 창고 슬롯
+    // 인벤토리 / 창고 슬롯 및 아이템데이터
     private InventorySlot[,] m_inventorySlots;
     private InventorySlot[,] m_chestSlots;
 
-    // 인벤토리 / 창고 아이템  데이터
-    // InventorySlot[,] 배열과 연동하여 아이템 존재여부 확인
-    // inventorySlots에 있는 아이템 확인
-    private ItemObject[,] m_inventory;
-    private ItemObject[,] m_chest;
-
     // 아이템 획득에 필요한 변수 미리 선언
-    private List<ItemTile> m_tiles;
+    public List<ItemTile> m_tiles;
+
     // Get / Set
     public int inventorySize { get { return 25; } }
     public int chestSize { get { return 12; } }
 
-    public ItemObject[,]          inventory  { get { return m_inventory; } }
-    public ItemObject[,]          chest      { get { return m_chest; } }
+    public ref InventorySlot[,] inventorySlots  { get { return ref m_inventorySlots; }}
+    public ref InventorySlot[,] chestSlots      { get { return ref m_chestSlots; }}
 
-    public InventorySlot[,] inventorySlots  { get { return m_inventorySlots; }}
-    public InventorySlot[,] chestSlots      { get { return m_chestSlots; }}
-
-    public List<ItemTile> tiles { get { return m_tiles; }}
+    public ref List<ItemTile> tiles { get { return ref m_tiles; }}
 
     protected override void InitializeManager()
     {
-        m_inventory = new ItemObject[5,5];
-        m_chest     = new ItemObject[2,6];
-
         m_inventorySlots    = new InventorySlot[5,5];
         m_chestSlots        = new InventorySlot[2,6];
     }
@@ -161,7 +150,7 @@ public class InventoryManager : Singleton_Mono<InventoryManager>
         return true;
     }
 
-    private void ChangeState(ref ItemPos curPos, ref InventorySlot[,] _inven)
+    public void ChangeState(ref ItemPos curPos, ref InventorySlot[,] _inven, bool _state = true)
     {
         // 인벤토리 사용중으로 변경
         for (int slot = 0; slot < tiles.Count; slot++)
@@ -169,7 +158,7 @@ public class InventoryManager : Singleton_Mono<InventoryManager>
             int y = curPos.y + tiles[slot].y;
             int x = curPos.x + tiles[slot].x;
 
-            _inven[y, x].state = true;
+            _inven[y, x].state = _state;
         }
     }
 
@@ -190,10 +179,10 @@ public class InventoryManager : Singleton_Mono<InventoryManager>
         }
         else if (Input.GetKeyDown(KeyCode.Tab))
         {
-            for(int i = 0; i < inventory.GetLength(0); i++)
+            for(int i = 0; i < inventorySlots.GetLength(0); i++)
             {
                 string a = "";
-                for(int j = 0; j < inventory.GetLength(0); j++)
+                for(int j = 0; j < inventorySlots.GetLength(0); j++)
                 {
                     a += inventorySlots[i, j].state ? " O " : " X ";
                 }

@@ -1,10 +1,12 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    private RectTransform m_rect;
-    private SlotType m_slotType;
+    private RectTransform   m_rect;
+    private Image           m_image;
+    private SlotType        m_slotType;
 
     // 데이터 확인하기 위해 인스펙터창에 노출
     [SerializeField] private int m_X;           // 위치 X값
@@ -13,19 +15,22 @@ public class InventorySlot : MonoBehaviour
     [SerializeField] private ItemObject m_item; // 해당 위치에 있는 아이템
 
     // get / set
+    public RectTransform rect { get { return m_rect; } }
+    public Image image { get { return m_image; } }
+    public SlotType slotType { get { return m_slotType; } }
+
     public int X { get { return m_X; } }
     public int Y { get { return m_Y; } }
-    public SlotType slotType { get { return m_slotType; } }
-    public RectTransform rect { get { return m_rect; } }
+
     public bool state { get { return m_state; } set {  m_state = value; } }
     public ItemObject item { get { return m_item; }  set { m_item = value; } }
-
     public void InitSlot(int _cnt, SlotType _type)
     {
         gameObject.name = "slot";
 
         // GetComponent
         m_rect = GetComponent<RectTransform>();
+        m_image = GetComponent<Image>();
 
         // Init
         m_slotType = _type;
@@ -47,10 +52,4 @@ public class InventorySlot : MonoBehaviour
         // InventoryManager로 넘김
         InventoryManager.Instance.AddSlot(this);
     }
-
-    public void print()
-    {
-        Debug.Log($"{Y},{X}");
-    }
-
 }

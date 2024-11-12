@@ -53,6 +53,9 @@ public class ItemManager : Singleton_Mono<ItemManager>
     public void CreateItem(ItemPos _pos, ItemName _name, SlotType _type, ref InventorySlot[,] _slots)
     {
         ItemObject newitem = Instantiate(itemPrefabs[(int)_name], itemsRect).GetComponent<ItemObject>();
+
+        _slots[_pos.y, _pos.x].item = newitem;
+
         newitem.InitItem(_pos. y,_pos.x, _name, _type);
         newitem.MoveToPosition(_slots[_pos.y, _pos.x].rect.position);
     }

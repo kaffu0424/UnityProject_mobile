@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ public class ItemObject : MonoBehaviour, IPointerClickHandler , IBeginDragHandle
     [SerializeField] private List<ItemTile> m_tiles;
 
     // 인벤토리 배열상 위치
-    private Vector2 m_pos;
+    private ItemPos m_pos;
     // 현재 위치한 슬롯타입
     private SlotType m_currentSlotType;
     // 아이템의 이름
@@ -19,11 +20,12 @@ public class ItemObject : MonoBehaviour, IPointerClickHandler , IBeginDragHandle
 
     // get / set
     public List<ItemTile> tiles { get { return m_tiles; } }
-    public Vector2 pos { get { return m_pos; } }
+    public ItemPos pos { get { return m_pos; } }
     public ItemName itemName { get { return m_itemName; } }
+
     public void InitItem(int _posY, int _posX, ItemName _name, SlotType _type)
     {
-        m_pos               = new Vector2(_posX, _posY);
+        m_pos               = new ItemPos(_posX, _posY);
         m_currentSlotType   = _type;
         m_itemName = _name;
 
@@ -59,6 +61,13 @@ public class ItemObject : MonoBehaviour, IPointerClickHandler , IBeginDragHandle
         // 오브젝트 순서를 맨 아래로 변경
         // 드래그중인 오브젝트을 가장 위에 보이도록 하기위함
         transform.SetAsLastSibling();
+
+        // 드래그 시작한 아이템의 타일정보 InventoryManager로 넘기기
+        if (!ItemManager.Instance.tiles.TryGetValue(itemName, out InventoryManager.Instance.m_tiles))
+            return;
+
+
+        InventoryManager.Instance.ChangeState(ref m_pos, ref GetSlots(m_currentSlotType), false);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -77,17 +86,17 @@ public class ItemObject : MonoBehaviour, IPointerClickHandler , IBeginDragHandle
         {
             if(result.gameObject.name == "slot")
             {
+                // slot : 현재 마우스가 올라가있는 위치의 슬롯
                 InventorySlot slot = result.gameObject.GetComponent<InventorySlot>();
 
-                if (!ItemManager.Instance.tiles.TryGetValue(m_itemName, out List<ItemTile> tiles))
-                    break;
-                
-                // slot : 현재 마우스가 올라가있는 위치의 슬롯
-                // tiles : 현재 선택된 아이템의 타일 정보
-
-                // slot 타입으로 .. InventoryManager에 접근해서.. 
-                // 타입에 맞는 슬롯 배열 확인하고..
-                // 이렇쿵 저렇쿵..
+                if(InventoryManager.Instance.CheckCurrentSlot(pos, ref GetSlots(slot.slotType), slot.slotType))
+                {
+                    // 이동 가능한 위치일때 동작
+                }
+                else
+                {
+                    // 이동 불가능한 위치일때 동작
+                }
             }
         }
     }
@@ -114,5 +123,16 @@ public class ItemObject : MonoBehaviour, IPointerClickHandler , IBeginDragHandle
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Click " + gameObject.name);
+    }
+
+
+    // 현재 아이템이 위치한 슬롯의 배열을 반환
+    // Get 으로 할려다가 매개변수로 받아서 할수있도록 할려고 함수로 수정
+    public ref InventorySlot[,] GetSlots(SlotType _type)
+    {
+            if (_type == SlotType.Inventory)
+                return ref InventoryManager.Instance.inventorySlots;
+            else
+                return ref InventoryManager.Instance.chestSlots;
     }
 }

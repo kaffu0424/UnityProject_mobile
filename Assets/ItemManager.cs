@@ -5,7 +5,6 @@ public enum ItemName
 {
     G67,
     Sword,
-    M4
 }
 
 [System.Serializable]
@@ -16,6 +15,8 @@ public struct ItemTile
     public int x { get { return m_x; } }
     public int y { get { return m_y; } }
 }
+
+[System.Serializable]
 public struct ItemPos
 {
     public int m_x;
@@ -32,31 +33,31 @@ public struct ItemPos
 
 public class ItemManager : Singleton_Mono<ItemManager>
 {
-    [SerializeField] private List<GameObject>                       m_itemPrefabs;
-    [SerializeField] private RectTransform                          m_itemsRect;
-    [SerializeField] private Dictionary<ItemName, List<ItemTile>>   m_tiles;
+    [SerializeField] private List<GameObject>                       m_itemPrefabs;  // 아이템 프리팹
+    [SerializeField] private RectTransform                          m_itemsRect;    // 생성된 아이템 보관할 Transform
+    [SerializeField] private Dictionary<ItemName, List<ItemTile>>       m_tiles;        // 아이템 타일정보
+
     // Get / Set
     public List<GameObject>                     itemPrefabs { get { return m_itemPrefabs; } }
     public RectTransform                        itemsRect   { get { return m_itemsRect; } }
-    public Dictionary<ItemName, List<ItemTile>> tiles       { get { return m_tiles; } }
 
     protected override void InitializeManager()
     {
         m_tiles = new Dictionary<ItemName, List<ItemTile>>();
+
         for(int i = 0; i < m_itemPrefabs.Count; i++)
         {
-            m_tiles.Add(
-                (ItemName)i, m_itemPrefabs[i].GetComponent<ItemObject>().tiles);
+            m_tiles.Add((ItemName)i, m_itemPrefabs[i].GetComponent<ItemObject>().tiles);
         }   
     }
-
-    public void CreateItem(ItemPos _pos, ItemName _name, SlotType _type, ref InventorySlot[,] _slots)
+    
+    public List<ItemTile> GetItemTiles(ItemName _name)
     {
-        ItemObject newitem = Instantiate(itemPrefabs[(int)_name], itemsRect).GetComponent<ItemObject>();
+        if(m_tiles.TryGetValue(_name, out List<ItemTile> tiles))
+        {
+            return tiles;
+        }
 
-        _slots[_pos.y, _pos.x].item = newitem;
-
-        newitem.InitItem(_pos. y,_pos.x, _name, _type);
-        newitem.MoveToPosition(_slots[_pos.y, _pos.x].rect.position);
+        return null;
     }
 }

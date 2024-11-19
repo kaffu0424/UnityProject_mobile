@@ -6,24 +6,18 @@ public class InventorySlot : MonoBehaviour
 {
     private RectTransform   m_rect;
     private Image           m_image;
-    private SlotType        m_slotType;
 
     // 데이터 확인하기 위해 인스펙터창에 노출
-    [SerializeField] private int m_X;           // 위치 X값
-    [SerializeField] private int m_Y;           // 위치 Y값
-    [SerializeField] private bool m_state;      // 해당 위치에 아이템 존재여부
-    [SerializeField] private ItemObject m_item; // 해당 위치에 있는 아이템
+    [SerializeField] private ItemPos    m_pos;          // 위치 값
+    [SerializeField] private ItemObject m_item;         // 해당 위치에 있는 아이템
+    [SerializeField] private SlotType   m_slotType;     // 슬롯의 타입
 
     // get / set
-    public RectTransform rect { get { return m_rect; } }
-    public Image image { get { return m_image; } }
+    public ref ItemPos pos { get { return ref m_pos; } }
+    public ItemObject item { get { return m_item; }  set { m_item = value; } }
     public SlotType slotType { get { return m_slotType; } }
 
-    public int X { get { return m_X; } }
-    public int Y { get { return m_Y; } }
 
-    public bool state { get { return m_state; } set {  m_state = value; } }
-    public ItemObject item { get { return m_item; }  set { m_item = value; } }
     public void InitSlot(int _cnt, SlotType _type)
     {
         gameObject.name = "slot";
@@ -33,23 +27,25 @@ public class InventorySlot : MonoBehaviour
         m_image = GetComponent<Image>();
 
         // Init
-        m_slotType = _type;
-        m_state = false;
         item = null;
+        m_slotType = _type;
 
         // 배열 첫번째 0,0 일때 예외처리
         if(_cnt == 0)
         {
-            m_Y = 0;
-            m_X = 0;
+            m_pos.y = 0;
+            m_pos.x = 0;
         }
         else
         {
-            m_Y = _cnt / (int)slotType;
-            m_X = _cnt % (int)slotType;
+            m_pos.y = _cnt / 5;
+            m_pos.x = _cnt % 5;
         }
 
-        // InventoryManager로 넘김
-        InventoryManager.Instance.AddSlot(this);
+        //InventoryManager의 Slot 배열에 타입에 맞게 저장
+        if (slotType == SlotType.Inventory)
+            InventoryManager.Instance.inventorySlots[m_pos.y, m_pos.x] = this;
+        else
+            InventoryManager.Instance.chestSlots[m_pos.y, m_pos.x] = this;
     }
 }

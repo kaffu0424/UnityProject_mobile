@@ -1,193 +1,106 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
-using static Unity.Burst.Intrinsics.X86;
-using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public enum SlotType
 {
-    Inventory = 5,
-    Chest = 6
-}
-
-public enum ItemType
-{
-    A,
-    B,
-    C,
-    D
+    Inventory,
+    Chest
 }
 
 public class InventoryManager : Singleton_Mono<InventoryManager>
 {
+    #region 인벤토리 로직용 변수
+    List<ItemTile> t_tiles; 
+    ItemPos t_pos;
+    int t_y; 
+    int t_x;
+    int t_maxY; 
+    int t_maxX;
+    #endregion
+
+    public int inventorySize => 25;
+    public int chestSize => 10;
+
     // 인벤토리 / 창고 슬롯 및 아이템데이터
     private InventorySlot[,] m_inventorySlots;
     private InventorySlot[,] m_chestSlots;
 
-    // 아이템 획득에 필요한 변수 미리 선언
-    public List<ItemTile> m_tiles;
-
-    // Get / Set
-    public int inventorySize { get { return 25; } }
-    public int chestSize { get { return 12; } }
-
     public ref InventorySlot[,] inventorySlots  { get { return ref m_inventorySlots; }}
     public ref InventorySlot[,] chestSlots      { get { return ref m_chestSlots; }}
 
-    public ref List<ItemTile> tiles { get { return ref m_tiles; }}
-
     protected override void InitializeManager()
     {
-        m_inventorySlots    = new InventorySlot[5,5];
-        m_chestSlots        = new InventorySlot[2,6];
+        m_inventorySlots    = new InventorySlot[5, 5];
+        m_chestSlots        = new InventorySlot[2, 5];
     }
-
-    public void AddSlot(InventorySlot _slot)
-    {
-        int y = _slot.Y;
-        int x = _slot.X;
-
-        if(_slot.slotType == SlotType.Inventory)
-            m_inventorySlots[y, x] = _slot;
-        else
-            m_chestSlots[y, x] = _slot;
-    }
-
 
     public void GetItem(ItemName _name)
     {
-        ItemPos curPos;
-        // 아이템의 타일 정보 가져오기
-        if(ItemManager.Instance.tiles.TryGetValue(_name, out m_tiles))
+        t_tiles = ItemManager.Instance.GetItemTiles(_name);
+        // 아이템 획득
+        // 1. 비어있는 기준점 탐색
+        // 2. 비어있는 기준점을 중심으로 생성될 아이템의 타일정보로 탐색
+        // 3. 전부 비어있다면 생성
+
+        // 인벤토리 슬롯 확인
+        if (CheckAllSlot(ref inventorySlots, ref t_tiles, out t_pos))
         {
-            // 인벤토리 확인 및 생성
-            if (CheckSlots(ref m_inventorySlots, SlotType.Inventory, out curPos))
-            {
-                if(curPos.x != -1)
-                {
-                    // 아이템 생성
-                    ItemManager.Instance.CreateItem(
-                        curPos, _name, SlotType.Inventory, ref m_inventorySlots);
 
-                    // 인벤토리 사용중으로 변경
-                    ChangeState(ref curPos, ref m_inventorySlots);
+        }
+        // 창고 슬롯 확인
+        else if (CheckAllSlot(ref chestSlots, ref t_tiles, out t_pos))
+        {
 
-                    return;
-                }
-            }
-
-            // 창고 확인 및 생성
-            else if(CheckSlots(ref m_chestSlots, SlotType.Chest, out curPos))
-            {
-                // 아이템 생성
-                if(curPos.x != -1)
-                {
-                    // 아이템 생성
-                    ItemManager.Instance.CreateItem(
-                        curPos, _name, SlotType.Chest, ref m_chestSlots);
-
-                    // 인벤토리 사용중으로 변경
-                    ChangeState(ref curPos, ref m_chestSlots);
-                    return;
-                }
-
-            }
         }
     }
 
-    private bool CheckSlots(ref InventorySlot[,] _inven, SlotType _type, out ItemPos _pos)
+    public bool CheckAllSlot(ref InventorySlot[,] _slots, ref List<ItemTile> _tiles, out ItemPos _pos)
     {
         _pos = new ItemPos(-1, -1);
-        // 사용가능한 슬롯이 없을때 -1를 반환하여 아이템이 생성되지않도록 함
-        for (int y = 0; y < _inven.GetLength(0); y++)
+        t_maxY = _slots.GetLength(0);
+        t_maxX = _slots.GetLength(1);
+
+        for (t_y = 0; t_y < t_maxY; t_y++)
         {
-            for (int x = 0; x < _inven.GetLength(1); x++)
+            for (t_x = 0; t_x < t_maxX; t_x++)
             {
-                if (!CheckCurrentSlot(new ItemPos(x,y), ref _inven, _type))
+                // 이미 아이템이 있는 칸 
+                if (_slots[t_y, t_x].item != null)
                     continue;
 
-                _pos.x = x;
-                _pos.y = y;
+                // 생성된 아이템의 타일데이터 확인
+                if (!CheckTile(ref _slots, ref _tiles))
+                    continue;
 
-                return true;
+                // 기준점에 아이템이없고, 다른 타일도 배치가 가능한 위치일때
+                // 흠..
             }
         }
+
         return false;
     }
-
-    public bool CheckCurrentSlot(ItemPos _pos, ref InventorySlot[,] _inven, SlotType _type)
+    public bool CheckTile(ref InventorySlot[,] _slots, ref List<ItemTile> _tiles)
     {
-        ItemPos maxPos;
-        // 슬롯의 타입에 맞는 슬롯의 범위
-        if (_type == SlotType.Inventory)
-            maxPos = new ItemPos(5, 5);
-        else
-            maxPos = new ItemPos(6, 2);
-
-        // 현재 생성된 아이템의 tile 데이터로 아이템이 생성될수있는 위치를 검사
-        for (int slot = 0; slot < tiles.Count; slot++)
+        for (int i = 0; i < _tiles.Count; i++)
         {
-            // 검사해야할 위치
-            int y = _pos.y + tiles[slot].y;
-            int x = _pos.x + tiles[slot].x;
+            int nextY = t_y + _tiles[i].y;
+            int nextX = t_x + _tiles[i].x;
 
-            if (y >= maxPos.y || x >= maxPos.x)
-            {
-                Debug.Log("여긴 못씀! ( 범위 초과 )");
+            // 범위 넘어감
+            if (nextX < 0 || nextY < 0)
                 return false;
-            }
 
-            // 이미 사용중임
-            if (_inven[y, x].state)
-            {
-                Debug.Log("여긴 못씀! ( 이미 사용중 )");
+            // 범위 넘어감
+            if (nextX >= t_maxX || nextY >= t_maxY)
                 return false;
-            }
+
+            // 아이템 있음
+            if (_slots[nextY, nextX].item != null)
+                return false;
         }
 
-        // 모든 타일값이 사용가능하다면 true 반환
         return true;
-    }
-
-    public void ChangeState(ref ItemPos curPos, ref InventorySlot[,] _inven, bool _state = true)
-    {
-        // 인벤토리 사용중으로 변경
-        for (int slot = 0; slot < tiles.Count; slot++)
-        {
-            int y = curPos.y + tiles[slot].y;
-            int x = curPos.x + tiles[slot].x;
-
-            _inven[y, x].state = _state;
-        }
-    }
-
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            GetItem(ItemName.G67);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            GetItem(ItemName.Sword);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            GetItem(ItemName.M4);
-        }
-        else if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            for(int i = 0; i < inventorySlots.GetLength(0); i++)
-            {
-                string a = "";
-                for(int j = 0; j < inventorySlots.GetLength(0); j++)
-                {
-                    a += inventorySlots[i, j].state ? " O " : " X ";
-                }
-                Debug.Log(a);
-            }
-        }
     }
 }
